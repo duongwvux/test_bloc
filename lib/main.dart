@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prj/features/data/repositories/database_auth_repository.dart';
 import 'package:prj/features/data/datasources/database/auth_database.dart';
 import 'package:prj/features/data/security/argon2_password_hasher.dart';
+import 'package:prj/features/domain/entities/api_user.dart';
 import 'package:prj/features/domain/repositories/auth_repository.dart';
 import 'package:prj/features/presentation/register/view/page/register_page.dart';
+import 'package:prj/features/presentation/user_detail/view/page/user_detail_page.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'features/presentation/user/view/page/user_page.dart';
@@ -50,6 +52,33 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+        onGenerateRoute: (settings) {
+          final uri = Uri.tryParse(settings.name ?? '');
+          final segments = uri?.pathSegments;
+
+          if (segments == null ||
+              segments.length != 2 ||
+              segments.first != 'users') {
+            return null;
+          }
+          final user = settings.arguments;
+
+          if (user is ApiUser && user.id == segments[1]) {
+            return MaterialPageRoute<void>(
+              settings: settings,
+              builder: (_) => UserDetailPage(user: user),
+            );
+          }
+          return MaterialPageRoute<void>(
+            settings: settings,
+            builder: (_) => Scaffold(
+              appBar: AppBar(title: const Text('Thông tin người dùng'),),
+              body: const Center(
+                child: Text("Không tìm thấy thông tin người dùng"),
+              ),
+            )
+          );
+        },
         routes: {
           '/home': (context) {
             developer.log('Creating /home route', name: 'Auth.Navigation');
