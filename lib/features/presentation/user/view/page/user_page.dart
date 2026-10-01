@@ -4,7 +4,7 @@ import 'package:prj/features/data/repositories/api_user_repository.dart';
 import 'package:prj/features/presentation/user/bloc/user_bloc.dart';
 import 'package:prj/features/presentation/user/bloc/user_event.dart';
 import 'package:prj/features/presentation/user/bloc/user_state.dart';
-import 'package:prj/features/presentation/user/view/widget/searchable_user_list.dart';
+import 'package:prj/features/presentation/user/view/widget/user_list.dart';
 
 class UserPage extends StatelessWidget {
   final String token;
@@ -32,7 +32,7 @@ class UserPage extends StatelessWidget {
               body: BlocBuilder<UserBloc, UserState>(
                   builder: (context, state) {
                     if (state is UserLoaded) {
-                      return SearchableUserList(users: state.users);
+                      return UserList(users: state.users);
                     }
                     if (state is UserFailure) {
                       return Center(
