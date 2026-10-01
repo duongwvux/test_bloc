@@ -1,5 +1,6 @@
 class ApiUser {
   final String id;
+  final String avatar;
   final String account;
   final String name;
   final String email;
@@ -8,6 +9,7 @@ class ApiUser {
 
   const ApiUser({
     required this.id,
+    this.avatar = '',
     required this.account,
     required this.name,
     required this.email,
@@ -18,7 +20,8 @@ class ApiUser {
   factory ApiUser.fromJson(Map<String, dynamic> json) {
     final department = json['department'];
     return ApiUser(
-        id: json['id']?.toString() ?? '',
+        id: json['_id']?.toString() ?? '',
+        avatar: json['avatar']?.toString() ?? '',
         account: json['account']?.toString() ?? '',
         name: json['name']?.toString() ?? '',
         email: json['email']?.toString() ?? '',
