@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prj/features/domain/entities/api_user.dart';
+import 'package:prj/features/presentation/user_detail/view/widget/user_calendar.dart';
 
 class UserDetailView extends StatelessWidget {
   final ApiUser user;
@@ -47,6 +48,9 @@ class UserDetailView extends StatelessWidget {
           _info('Email', user.email),
           _info('Số điện thoại', user.phoneNumber),
           _info('Phòng ban', user.departmentNumber),
+
+          const SizedBox(height: 24,),
+          const UserCalendar(),
         ],
       ),
     );
